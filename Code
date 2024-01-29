@@ -28,7 +28,6 @@ if startIndex then
     end
 end
 
-local baba = '{"expectedCurrency":1,"expectedPrice":5,"expectedSellerId":4333856178}'
 local eros = '{"expectedCurrency":1,"expectedPrice":15,"expectedSellerId":4333856178}'
 local hercules = '{"expectedCurrency":1,"expectedPrice":25,"expectedSellerId":4333856178}'
 local hylos = '{"expectedCurrency":1,"expectedPrice":50,"expectedSellerId":4333856178}'
@@ -50,6 +49,8 @@ local demeter = '{"expectedCurrency":1,"expectedPrice":35000,"expectedSellerId":
 local atlas = '{"expectedCurrency":1,"expectedPrice":50000,"expectedSellerId":4333856178}'
 local cronus = '{"expectedCurrency":1,"expectedPrice":75000,"expectedSellerId":4333856178}'
 local helios = '{"expectedCurrency":1,"expectedPrice":150000,"expectedSellerId":4333856178}'
+
+task.wait(0.01)
 
 if rb == 0 then
 print("ok")
