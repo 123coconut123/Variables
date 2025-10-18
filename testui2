@@ -210,7 +210,8 @@ function Library:AddWindow(windowTitle, toggleKey)
 
         StatsMain.Parent = StatsFrame
         StatsMain.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-        StatsMain.Position = UDim2.new(0.434, 0, 0.079, 0)
+        StatsMain.AnchorPoint = Vector2.new(0, 0)
+        StatsMain.Position = UDim2.new(0, 20, 0, 20) -- FIX: Sabit pozisyon
         StatsMain.Size = UDim2.new(0, 270, 0, 126)
         StatsMain.Image = "rbxassetid://" .. a[1]
 
@@ -484,6 +485,143 @@ function Library:AddWindow(windowTitle, toggleKey)
 
         local Elements = {}
 
+        -- FIX: Alt tab sistemi eklendi
+        function Elements:AddSubTab(subTabName)
+            local SubTabHolder = Instance.new("Frame")
+            local SubTabList = Instance.new("UIListLayout")
+            local SubTabPadding = Instance.new("UIPadding")
+            local SubTabButtons = Instance.new("Frame")
+            local SubButtonList = Instance.new("UIListLayout")
+            local SubButtonPadding = Instance.new("UIPadding")
+            
+            SubTabHolder.Name = "SubTabHolder"
+            SubTabHolder.Parent = TabContent
+            SubTabHolder.BackgroundTransparency = 1
+            SubTabHolder.Size = UDim2.new(0, 469, 0, 200)
+            
+            SubTabButtons.Name = "SubTabButtons"
+            SubTabButtons.Parent = SubTabHolder
+            SubTabButtons.BackgroundTransparency = 1
+            SubTabButtons.Size = UDim2.new(0, 469, 0, 30)
+            
+            SubButtonList.Parent = SubTabButtons
+            SubButtonList.FillDirection = Enum.FillDirection.Horizontal
+            SubButtonList.Padding = UDim.new(0, 5)
+            
+            SubButtonPadding.Parent = SubTabButtons
+            SubButtonPadding.PaddingTop = UDim.new(0, 5)
+            
+            local SubElements = {}
+            local currentSubTab = nil
+            
+            function SubElements:AddPage(pageName)
+                local PageButton = Instance.new("TextButton")
+                local PageCorner = Instance.new("UICorner")
+                local PageContent = Instance.new("ScrollingFrame")
+                local PageList = Instance.new("UIListLayout")
+                local PagePadding = Instance.new("UIPadding")
+                
+                PageButton.Name = pageName .. "Button"
+                PageButton.Parent = SubTabButtons
+                PageButton.BackgroundColor3 = _G.ButtonColor
+                PageButton.Size = UDim2.new(0, 100, 0, 25)
+                PageButton.Font = Enum.Font.Gotham
+                PageButton.Text = pageName
+                PageButton.TextColor3 = Color3.fromRGB(175, 175, 175)
+                PageButton.TextSize = 11
+                PageButton.AutoButtonColor = false
+                
+                PageCorner.CornerRadius = UDim.new(0, 4)
+                PageCorner.Parent = PageButton
+                
+                PageContent.Name = pageName .. "Content"
+                PageContent.Parent = SubTabHolder
+                PageContent.BackgroundTransparency = 1
+                PageContent.Position = UDim2.new(0, 0, 0, 35)
+                PageContent.Size = UDim2.new(0, 469, 0, 165)
+                PageContent.ScrollBarThickness = 3
+                PageContent.ScrollBarImageColor3 = Color3.fromRGB(225, 85, 85)
+                PageContent.Visible = false
+                
+                PageList.Parent = PageContent
+                PageList.Padding = UDim.new(0, 5)
+                
+                PagePadding.Parent = PageContent
+                PagePadding.PaddingTop = UDim.new(0, 5)
+                
+                PageButton.MouseButton1Click:Connect(function()
+                    for _, child in pairs(SubTabHolder:GetChildren()) do
+                        if child:IsA("ScrollingFrame") then
+                            child.Visible = false
+                        end
+                    end
+                    for _, btn in pairs(SubTabButtons:GetChildren()) do
+                        if btn:IsA("TextButton") then
+                            btn.BackgroundColor3 = _G.ButtonColor
+                        end
+                    end
+                    PageContent.Visible = true
+                    PageButton.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+                    currentSubTab = pageName
+                end)
+                
+                if currentSubTab == nil then
+                    PageContent.Visible = true
+                    PageButton.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+                    currentSubTab = pageName
+                end
+                
+                spawn(function()
+                    while task.wait() do
+                        PageContent.CanvasSize = UDim2.new(0, 0, 0, PageList.AbsoluteContentSize.Y + 10)
+                    end
+                end)
+                
+                local PageElements = {}
+                
+                function PageElements:AddButton(text, callback)
+                    local Button = Instance.new("TextButton")
+                    local BCorner = Instance.new("UICorner")
+
+                    Button.Name = "Button"
+                    Button.Parent = PageContent
+                    Button.BackgroundColor3 = _G.ButtonColor
+                    Button.Size = UDim2.new(0, 469, 0, 30)
+                    Button.AutoButtonColor = false
+                    Button.Font = Enum.Font.Gotham
+                    Button.Text = text
+                    Button.TextColor3 = Color3.fromRGB(225, 225, 225)
+                    Button.TextSize = 11
+                    Button.TextWrapped = true
+
+                    BCorner.CornerRadius = UDim.new(0, 4)
+                    BCorner.Parent = Button
+
+                    Button.MouseButton1Click:Connect(function()
+                        pcall(callback)
+                        Button.TextSize = 7
+                        TweenService:Create(Button, TweenInfo.new(0.4, Enum.EasingStyle.Back), {TextSize = 11}):Play()
+                    end)
+
+                    Button.MouseEnter:Connect(function()
+                        TweenService:Create(Button, TweenInfo.new(0.4), {TextColor3 = _G.Clickcolor}):Play()
+                    end)
+
+                    Button.MouseLeave:Connect(function()
+                        TweenService:Create(Button, TweenInfo.new(0.4), {TextColor3 = Color3.fromRGB(225, 225, 225)}):Play()
+                    end)
+
+                    return {}
+                end
+                
+                return PageElements
+            end
+            
+            SubTabHolder.Size = UDim2.new(0, 469, 0, 200)
+            
+            return SubElements
+        end
+
         function Elements:AddButton(text, callback)
             local Button = Instance.new("TextButton")
             local BCorner = Instance.new("UICorner")
@@ -696,8 +834,9 @@ function Library:AddWindow(windowTitle, toggleKey)
             local dragging = false
             local UserInputService = game:GetService("UserInputService")
 
-            local function updateSlider(input)
-                local pos = math.clamp(input.Position.X - Bar1.AbsolutePosition.X, 0, Bar1.AbsoluteSize.X)
+            -- FIX: İyileştirilmiş slider fonksiyonu
+            local function updateSlider(inputPos)
+                local pos = math.clamp(inputPos - Bar1.AbsolutePosition.X, 0, Bar1.AbsoluteSize.X)
                 local value = math.floor((pos / Bar1.AbsoluteSize.X * (max - min) + min) * 10 + 0.5) / 10
                 Bar.Size = UDim2.new(pos / Bar1.AbsoluteSize.X, 0, 1, 0)
                 CircleBar.Position = UDim2.new(1, 0, 0.5, 0)
@@ -712,7 +851,7 @@ function Library:AddWindow(windowTitle, toggleKey)
             SliderButton.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.Touch then
                     dragging = true
-                    updateSlider(input)
+                    updateSlider(input.Position.X)
                 end
             end)
 
@@ -725,10 +864,9 @@ function Library:AddWindow(windowTitle, toggleKey)
             UserInputService.InputChanged:Connect(function(input)
                 if dragging then
                     if input.UserInputType == Enum.UserInputType.MouseMovement then
-                        local mousePos = game.Players.LocalPlayer:GetMouse()
-                        updateSlider(Vector2.new(mousePos.X, mousePos.Y))
+                        updateSlider(mouse.X)
                     elseif input.UserInputType == Enum.UserInputType.Touch then
-                        updateSlider(input.Position)
+                        updateSlider(input.Position.X)
                     end
                 end
             end)
